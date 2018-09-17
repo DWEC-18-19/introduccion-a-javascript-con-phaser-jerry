@@ -8,12 +8,12 @@ var cursors;
 var jumpButton;
 var text;
 var winningMessage;
+var restartMessage;
+var lives;
 var won = false;
-var lose = true;
+var end = true;
 var currentScore = 0;
 var winningScore = 100;
-var lives = 2;
-var restartMessage;
 
 // add collectable items to the game
 function addItems() {
@@ -78,17 +78,26 @@ function itemHandler(player, item) {
   }else if( item.key === 'poison' ){
     if( --lives == 0 ){
       winningMessage.text = "YOU LOSE!!!";
-      restartMessage.anchor.setTo(0.5, 1);
+      end = true;
     }
   }else if( item.key === 'star' ){
     lives++;
   }
 }
 
+function restartGame(){
+  winningMessage.text = "";
+  restartMessage.text = "";
+  end = false;
+  won = false;
+  lives = 3;
+}
+
 // when the player collects the badge at the end of the game
 function badgeHandler(player, badge) {
   badge.kill();
   won = true;
+  end = true;
 }
 
 // setup game when the web page loads
@@ -131,14 +140,14 @@ window.onload = function () {
     text = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
-    restartMessage = game.add.text(game.world.centerX, 275, "Press Space Key To Start", { font: "bold 48px Arial", fill: "white" });
-    restartMessage.anchor.setTo(0.5, 1);
+    restartMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
+    restartMessage.anchor.setTo(0.5, 2);
     
   }
 
   // while the game is running
   function update() {
-    if( !lose ){
+    if( !end ){
       text.text = "SCORE: " + currentScore
         + "\nLIVES: " + lives;
       game.physics.arcade.collide(player, platforms);
@@ -171,8 +180,10 @@ window.onload = function () {
         winningMessage.text = "YOU WIN!!!";
       }
     }else{
+      if( restartMessage.text === "" )
+          restartMessage.text = "Press Space Key To Start";
       if( jumpButton.isDown ){
-        lose = false;
+        restartGame();
       }
     }
   }
