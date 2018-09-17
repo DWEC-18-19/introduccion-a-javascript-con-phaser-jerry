@@ -9,10 +9,11 @@ var jumpButton;
 var text;
 var winningMessage;
 var won = false;
-var lose = false;
+var lose = true;
 var currentScore = 0;
 var winningScore = 100;
 var lives = 2;
+var restartMessage;
 
 // add collectable items to the game
 function addItems() {
@@ -24,11 +25,11 @@ function addItems() {
   createItem(75, 30, 'coin');
   createItem(275, 300, 'coin');
   createItem(50, 150, 'coin');
-  createItem(375, 300, 'coin');
-  createItem(375, 300, 'coin');
-  createItem(375, 300, 'coin');
-  createItem(375, 300, 'coin');
-  createItem(375, 300, 'coin');
+  createItem(175, 300, 'coin');
+  createItem(540, 200, 'coin');
+  createItem(720, 100, 'coin');
+  createItem(30, 400, 'coin');
+  createItem(290, 500, 'coin');
 
   //Star
   createItem(125, 50, 'star');
@@ -76,8 +77,8 @@ function itemHandler(player, item) {
     }
   }else if( item.key === 'poison' ){
     if( --lives == 0 ){
-      createBadge();
       winningMessage.text = "YOU LOSE!!!";
+      restartMessage.anchor.setTo(0.5, 1);
     }
   }else if( item.key === 'star' ){
     lives++;
@@ -122,45 +123,57 @@ window.onload = function () {
     addItems();
     addPlatforms();
 
+    //Keys
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+    //Labels
     text = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
+    restartMessage = game.add.text(game.world.centerX, 275, "Press Space Key To Start", { font: "bold 48px Arial", fill: "white" });
+    restartMessage.anchor.setTo(0.5, 1);
+    
   }
 
   // while the game is running
   function update() {
-    text.text = "SCORE: " + currentScore
-      + "\nLIVES: " + lives;
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.overlap(player, items, itemHandler);
-    game.physics.arcade.overlap(player, badges, badgeHandler);
-    player.body.velocity.x = 0;
+    if( !lose ){
+      text.text = "SCORE: " + currentScore
+        + "\nLIVES: " + lives;
+      game.physics.arcade.collide(player, platforms);
+      game.physics.arcade.overlap(player, items, itemHandler);
+      game.physics.arcade.overlap(player, badges, badgeHandler);
+      player.body.velocity.x = 0;
 
-    // is the left cursor key presssed?
-    if (cursors.left.isDown) {
-      player.animations.play('walk', 10, true);
-      player.body.velocity.x = -300;
-      player.scale.x = - 1;
-    }
-    // is the right cursor key pressed?
-    else if (cursors.right.isDown) {
-      player.animations.play('walk', 10, true);
-      player.body.velocity.x = 300;
-      player.scale.x = 1;
-    }
-    // player doesn't move
-    else {
-      player.animations.stop();
-    }
-    
-    if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
-      player.body.velocity.y = -400;
-    }
-    // when the player winw the game
-    if (won) {
-      winningMessage.text = "YOU WIN!!!";
+      // is the left cursor key presssed?
+      if (cursors.left.isDown) {
+        player.animations.play('walk', 10, true);
+        player.body.velocity.x = -300;
+        player.scale.x = - 1;
+      }
+      // is the right cursor key pressed?
+      else if (cursors.right.isDown) {
+        player.animations.play('walk', 10, true);
+        player.body.velocity.x = 300;
+        player.scale.x = 1;
+      }
+      // player doesn't move
+      else {
+        player.animations.stop();
+      }
+      
+      if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
+        player.body.velocity.y = -400;
+      }
+      // when the player winw the game
+      if (won) {
+        winningMessage.text = "YOU WIN!!!";
+      }
+    }else{
+      if( jumpButton.isDown ){
+        lose = false;
+      }
     }
   }
 
