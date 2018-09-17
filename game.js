@@ -4,6 +4,7 @@ var player;
 var platforms;
 var badges;
 var items;
+var stars;
 var cursors;
 var jumpButton;
 var text;
@@ -15,7 +16,23 @@ var winningScore = 100;
 // add collectable items to the game
 function addItems() {
   items = game.add.physicsGroup();
+
+  //Coins
   createItem(375, 300, 'coin');
+  createItem(750, 30, 'coin');
+  createItem(75, 30, 'coin');
+  createItem(275, 300, 'coin');
+  createItem(50, 150, 'coin');
+  createItem(375, 300, 'coin');
+  createItem(375, 300, 'coin');
+  createItem(375, 300, 'coin');
+  createItem(375, 300, 'coin');
+  createItem(375, 300, 'coin');
+
+  //Poison
+  //createItem(370, 500, 'poison');
+  //createItem(100, 375, 'poison');
+
 }
 
 // add platforms to the game
@@ -43,6 +60,14 @@ function createBadge() {
   var badge = badges.create(750, 400, 'badge');
   badge.animations.add('spin');
   badge.animations.play('spin', 10, true);
+}
+
+// create the star and add to screen
+function createStar() {
+  stars = game.add.physicsGroup();
+  var star = stars.create(125, 50, 'star');
+  star.animations.add('spin');
+  star.animations.play('spin', 5, true);
 }
 
 // when the player collects an item on the screen
@@ -76,6 +101,7 @@ window.onload = function () {
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
     game.load.spritesheet('badge', 'badge.png', 42, 54);
+    game.load.spritesheet('star', 'star.png', 18 , 19);
   }
 
   // initial game set up
@@ -89,6 +115,7 @@ window.onload = function () {
 
     addItems();
     addPlatforms();
+    createStar();
 
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
