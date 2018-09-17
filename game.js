@@ -4,7 +4,6 @@ var player;
 var platforms;
 var badges;
 var items;
-var stars;
 var cursors;
 var jumpButton;
 var text;
@@ -12,6 +11,7 @@ var winningMessage;
 var won = false;
 var currentScore = 0;
 var winningScore = 100;
+var lives = 3;
 
 // add collectable items to the game
 function addItems() {
@@ -29,9 +29,12 @@ function addItems() {
   createItem(375, 300, 'coin');
   createItem(375, 300, 'coin');
 
+  //Star
+  createItem(125, 50, 'star');
+
   //Poison
-  //createItem(370, 500, 'poison');
-  //createItem(100, 375, 'poison');
+  createItem(370, 500, 'poison');
+  createItem(100, 375, 'poison');
 
 }
 
@@ -62,20 +65,18 @@ function createBadge() {
   badge.animations.play('spin', 10, true);
 }
 
-// create the star and add to screen
-function createStar() {
-  stars = game.add.physicsGroup();
-  var star = stars.create(125, 50, 'star');
-  star.animations.add('spin');
-  star.animations.play('spin', 5, true);
-}
-
 // when the player collects an item on the screen
 function itemHandler(player, item) {
   item.kill();
-  currentScore = currentScore + 10;
-  if (currentScore === winningScore) {
-      createBadge();
+  if( item.key === 'coin'){
+    currentScore = currentScore + 10;
+    if (currentScore === winningScore) {
+        createBadge();
+    }
+  }else if( item.key === 'poison' ){
+    lives--;
+  }else if( item.key == 'star' ){
+    lives++;
   }
 }
 
@@ -102,6 +103,7 @@ window.onload = function () {
     game.load.spritesheet('coin', 'coin.png', 36, 44);
     game.load.spritesheet('badge', 'badge.png', 42, 54);
     game.load.spritesheet('star', 'star.png', 32 , 32);
+    game.load.spritesheet('poison', 'poison.png', 32 , 32);
   }
 
   // initial game set up
@@ -115,7 +117,6 @@ window.onload = function () {
 
     addItems();
     addPlatforms();
-    createStar();
 
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -126,7 +127,8 @@ window.onload = function () {
 
   // while the game is running
   function update() {
-    text.text = "SCORE: " + currentScore;
+    text.text = "SCORE: " + currentScore
+      + "\nLIVES: " + lives;
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.overlap(player, items, itemHandler);
     game.physics.arcade.overlap(player, badges, badgeHandler);
