@@ -21,7 +21,12 @@ function addItems() {
 // add platforms to the game
 function addPlatforms() {
   platforms = game.add.physicsGroup();
-  platforms.create(450, 150, 'platform');
+  platforms.create(450, 450, 'platform');
+  platforms.create(550, 350, 'platform');
+  platforms.create(550, 100, 'platform');
+  platforms.create(50, 150, 'platform2');
+  platforms.create(200, 250, 'platform2');
+  platforms.create(50, 350, 'platform2');
   platforms.setAll('body.immovable', true);
 }
 
@@ -65,6 +70,7 @@ window.onload = function () {
     
     //Load images
     game.load.image('platform', 'platform_1.png');
+    game.load.image('platform2', 'platform_2.png');
     
     //Load spritesheets
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
