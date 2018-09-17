@@ -9,9 +9,10 @@ var jumpButton;
 var text;
 var winningMessage;
 var won = false;
+var lose = false;
 var currentScore = 0;
 var winningScore = 100;
-var lives = 3;
+var lives = 2;
 
 // add collectable items to the game
 function addItems() {
@@ -74,8 +75,11 @@ function itemHandler(player, item) {
         createBadge();
     }
   }else if( item.key === 'poison' ){
-    lives--;
-  }else if( item.key == 'star' ){
+    if( --lives == 0 ){
+      createBadge();
+      winningMessage.text = "YOU LOSE!!!";
+    }
+  }else if( item.key === 'star' ){
     lives++;
   }
 }
