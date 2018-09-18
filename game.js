@@ -80,6 +80,7 @@ function itemHandler(player, item) {
     if( --lives == 0 ){
       winningMessage.text = "YOU LOSE!!!";
       end = true;
+      items.removeAll();
     }
   }else if( item.key === 'star' ){
     lives++;
@@ -91,10 +92,8 @@ function restartGame(){
   restartMessage.text = "";
   end = false;
   won = false;
-  lives = 2;
-
-  //restart items
-  items.array.forEach( item => item.kill() );
+  lives = INILIVES;
+  currentScore = 0;
   addItems();
 }
 
@@ -111,7 +110,7 @@ window.onload = function () {
   
   // before the game begins
   function preload() {
-    game.stage.backgroundColor = '#5db1ad';
+    //game.stage.background = 'parallax-mountain-bg.png';
     
     //Load images
     game.load.image('platform', 'platform_1.png');
@@ -144,7 +143,7 @@ window.onload = function () {
 
     //Labels
     scoreLabel = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
-    livesLabel = game.add.text(650, 5, "LIVES: " + currentScore, { font: "bold 24px Arial", fill: "white" });
+    livesLabel = game.add.text(650, 0, "LIVES: " + lives, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
     restartMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
@@ -186,6 +185,7 @@ window.onload = function () {
       // when the player winw the game
       if (won) {
         winningMessage.text = "YOU WIN!!!";
+        items.removeAll();
       }
     }else{
       if( restartMessage.text === "" )
