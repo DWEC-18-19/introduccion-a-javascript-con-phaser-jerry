@@ -1,3 +1,6 @@
+//define constant values
+var WINNINGSCORE = 100 , INILIVES = 2;
+
 // define variables
 var game;
 var player;
@@ -6,14 +9,12 @@ var badges;
 var items;
 var cursors;
 var jumpButton;
-var text;
-var winningMessage;
-var restartMessage;
-var lives;
+var scoreLabel, livesLabel ;
+var winningMessage , restartMessage;
+var lives = INILIVES;
 var won = false;
 var end = true;
 var currentScore = 0;
-var winningScore = 100;
 
 // add collectable items to the game
 function addItems() {
@@ -72,7 +73,7 @@ function itemHandler(player, item) {
   item.kill();
   if( item.key === 'coin'){
     currentScore = currentScore + 10;
-    if (currentScore === winningScore) {
+    if (currentScore === WINNINGSCORE) {
         createBadge();
     }
   }else if( item.key === 'poison' ){
@@ -90,7 +91,11 @@ function restartGame(){
   restartMessage.text = "";
   end = false;
   won = false;
-  lives = 3;
+  lives = 2;
+
+  //restart items
+  items.array.forEach( item => item.kill() );
+  addItems();
 }
 
 // when the player collects the badge at the end of the game
@@ -113,7 +118,8 @@ window.onload = function () {
     game.load.image('platform2', 'platform_2.png');
     
     //Load spritesheets
-    game.load.spritesheet('player', 'chalkers.png', 48, 62);
+    //game.load.spritesheet('player', 'chalkers.png', 48, 62);
+    game.load.spritesheet('player', 'mikethefrog.png', 32, 32);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
     game.load.spritesheet('badge', 'badge.png', 42, 54);
     game.load.spritesheet('star', 'star.png', 32 , 32);
@@ -127,9 +133,9 @@ window.onload = function () {
     player.anchor.setTo(0.5, 1);
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
-    player.body.gravity.y = 500;
+    player.body.gravity.y = 400;
 
-    addItems();
+    //addItems();
     addPlatforms();
 
     //Keys
@@ -137,7 +143,8 @@ window.onload = function () {
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     //Labels
-    text = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
+    scoreLabel = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
+    livesLabel = game.add.text(650, 5, "LIVES: " + currentScore, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
     restartMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
@@ -147,13 +154,14 @@ window.onload = function () {
 
   // while the game is running
   function update() {
+    scoreLabel.text = "SCORE: " + currentScore;
+    livesLabel.text = "\nLIVES: " + lives;
+    game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.overlap(player, items, itemHandler);
+    game.physics.arcade.overlap(player, badges, badgeHandler);
+    player.body.velocity.x = 0;
+
     if( !end ){
-      text.text = "SCORE: " + currentScore
-        + "\nLIVES: " + lives;
-      game.physics.arcade.collide(player, platforms);
-      game.physics.arcade.overlap(player, items, itemHandler);
-      game.physics.arcade.overlap(player, badges, badgeHandler);
-      player.body.velocity.x = 0;
 
       // is the left cursor key presssed?
       if (cursors.left.isDown) {
