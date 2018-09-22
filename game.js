@@ -124,7 +124,8 @@ window.onload = function () {
     
     //Load spritesheets
     //game.load.spritesheet('player', 'chalkers.png', 48, 62);
-    game.load.spritesheet('player', imagesPath + 'mikethefrog.png', 32, 32);
+    //game.load.spritesheet('player', imagesPath + 'mikethefrog.png', 32, 32);
+    game.load.spritesheet('player', imagesPath + 'skeleton.png', 32, 32);
     game.load.spritesheet('coin', imagesPath + 'coin.png', 36, 44);
     game.load.spritesheet('badge', imagesPath + 'badge.png', 42, 54);
     game.load.spritesheet('star', imagesPath + 'star.png', 32 , 32);
@@ -184,15 +185,16 @@ window.onload = function () {
         player.body.velocity.x = 300;
         player.scale.x = 1;
       }
-      //is the up cursosr key pressed?
-      else if (cursors.up.isDown && (player.body.onFloor() || player.body.touching.down)){
-        player.body.velocity.y = -400;
-      }
       // player doesn't move
       else {
         player.animations.stop();
       }
       
+      //is the up cursosr key pressed?
+      if (cursors.up.isDown && (player.body.onFloor() || player.body.touching.down)){
+        player.body.velocity.y = -400;
+      }
+
       // when the player winw the game
       if (won) {
         winningMessage.text = "YOU WIN!!!";
