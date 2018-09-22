@@ -15,7 +15,46 @@ var lives = INILIVES;
 var won = false;
 var end = true;
 var currentScore = 0;
-var imagesPath = 'Images/';
+
+//Config Array
+var config = {
+  'imagesPath' : 'Images/',
+  'preload' : {
+    'images' : [
+      { 'key' : 'background' , 'name' : 'Full Moon - background.png' },
+      { 'key' : 'platform' , 'name' : 'platform_1.png' },
+      { 'key' : 'platform2' , 'name' : 'platform_2.png' }
+    ]
+  },
+  'levels' : [
+              {
+                'position' : { 'X' : 50 , 'Y' : 600 },
+                'items' : [
+                  { 'type' : 'coin' , 'X' : 375 , 'Y' : 300 },
+                  { 'type' : 'coin' , 'X' : 750 , 'Y' : 30 },
+                  { 'type' : 'coin' , 'X' : 75 , 'Y' : 30 },
+                  { 'type' : 'coin' , 'X' : 275 , 'Y' : 300 },
+                  { 'type' : 'coin' , 'X' : 50 , 'Y' : 150 },
+                  { 'type' : 'coin' , 'X' : 175 , 'Y' : 300 },
+                  { 'type' : 'coin' , 'X' : 540 , 'Y' : 200 },
+                  { 'type' : 'coin' , 'X' : 720 , 'Y' : 100 },
+                  { 'type' : 'coin' , 'X' : 30 , 'Y' : 400 },
+                  { 'type' : 'coin' , 'X' : 290 , 'Y' : 500 },
+                  { 'type' : 'star' , 'X' : 125 , 'Y' : 50 },
+                  { 'type' : 'poison' , 'X' : 370 , 'Y' : 500 },
+                  { 'type' : 'poison' , 'X' : 100 , 'Y' : 375 }
+                ],
+                'platforms' : [
+                  { 'type' : 'platform' , 'X' : 450 , 'Y' : 450 },
+                  { 'type' : 'platform' , 'X' : 550 , 'Y' : 350 },
+                  { 'type' : 'platform' , 'X' : 550 , 'Y' : 100 },
+                  { 'type' : 'platform2' , 'X' : 50 , 'Y' : 150 },
+                  { 'type' : 'platform2' , 'X' : 200 , 'Y' : 250 },
+                  { 'type' : 'platform2' , 'X' : 50 , 'Y' : 350 }
+                ]
+              }
+              ]
+};
 
 // add collectable items to the game
 function addItems() {
@@ -115,21 +154,18 @@ window.onload = function () {
   
   // before the game begins
   function preload() {
-    //Background
-    game.load.image('background', imagesPath + 'Full Moon - background.png');
-    
-    //Load images
-    game.load.image('platform', imagesPath + 'platform_1.png');
-    game.load.image('platform2', imagesPath + 'platform_2.png');
-    
+
+    //load images from config
+    config.preload.images.forEach( img => game.load.image( img.key , config.imagesPath + img.name ) );
+
     //Load spritesheets
     //game.load.spritesheet('player', 'chalkers.png', 48, 62);
     //game.load.spritesheet('player', imagesPath + 'mikethefrog.png', 32, 32);
-    game.load.spritesheet('player', imagesPath + 'skeleton.png', 32, 32);
-    game.load.spritesheet('coin', imagesPath + 'coin.png', 36, 44);
-    game.load.spritesheet('badge', imagesPath + 'badge.png', 42, 54);
-    game.load.spritesheet('star', imagesPath + 'star.png', 32 , 32);
-    game.load.spritesheet('poison', imagesPath + 'poison.png', 32 , 32);
+    game.load.spritesheet('player', config.imagesPath + 'skeleton.png', 32, 32);
+    game.load.spritesheet('coin', config.imagesPath + 'coin.png', 36, 44);
+    game.load.spritesheet('badge', config.imagesPath + 'badge.png', 42, 54);
+    game.load.spritesheet('star', config.imagesPath + 'star.png', 32 , 32);
+    game.load.spritesheet('poison', config.imagesPath + 'poison.png', 32 , 32);
   }
 
   // initial game set up
