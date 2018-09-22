@@ -87,6 +87,7 @@ function itemHandler(player, item) {
   }
 }
 
+//Funcion para generar datos iniciales
 function restartGame(){
   winningMessage.text = "";
   restartMessage.text = "";
@@ -94,6 +95,10 @@ function restartGame(){
   won = false;
   lives = INILIVES;
   currentScore = 0;
+
+  //Player
+  player.body.x = 50;
+  player.body.y = 600;
   addItems();
 }
 
@@ -101,7 +106,6 @@ function restartGame(){
 function badgeHandler(player, badge) {
   badge.kill();
   won = true;
-  end = true;
 }
 
 // setup game when the web page loads
@@ -110,7 +114,8 @@ window.onload = function () {
   
   // before the game begins
   function preload() {
-    //game.stage.background = 'parallax-mountain-bg.png';
+    //Background
+    game.load.image('background','Full Moon - background.png');
     
     //Load images
     game.load.image('platform', 'platform_1.png');
@@ -127,6 +132,10 @@ window.onload = function () {
 
   // initial game set up
   function create() {
+    //Background load
+    game.add.tileSprite(0, 0, 800 , 600, 'background');
+
+    //Player creation
     player = game.add.sprite(50, 600, 'player');
     player.animations.add('walk');
     player.anchor.setTo(0.5, 1);
@@ -174,18 +183,20 @@ window.onload = function () {
         player.body.velocity.x = 300;
         player.scale.x = 1;
       }
+      //is the up cursosr key pressed?
+      else if (cursors.up.isDown && (player.body.onFloor() || player.body.touching.down)){
+        player.body.velocity.y = -400;
+      }
       // player doesn't move
       else {
         player.animations.stop();
       }
       
-      if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down)) {
-        player.body.velocity.y = -400;
-      }
       // when the player winw the game
       if (won) {
         winningMessage.text = "YOU WIN!!!";
         items.removeAll();
+        end = true;
       }
     }else{
       if( restartMessage.text === "" )
