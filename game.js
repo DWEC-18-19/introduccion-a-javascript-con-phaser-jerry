@@ -154,7 +154,7 @@ window.onload = function () {
 
     //Labels
     scoreLabel = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
-    livesLabel = game.add.text(650, 0, "LIVES: " + lives, { font: "bold 24px Arial", fill: "white" });
+    livesLabel = game.add.text(650, 16, "LIVES: " + lives, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
     restartMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
@@ -165,7 +165,7 @@ window.onload = function () {
   // while the game is running
   function update() {
     scoreLabel.text = "SCORE: " + currentScore;
-    livesLabel.text = "\nLIVES: " + lives;
+    livesLabel.text = "LIVES: " + lives;
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.overlap(player, items, itemHandler);
     game.physics.arcade.overlap(player, badges, badgeHandler);
