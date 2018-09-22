@@ -15,6 +15,7 @@ var lives = INILIVES;
 var won = false;
 var end = true;
 var currentScore = 0;
+var imagesPath = 'Images/';
 
 // add collectable items to the game
 function addItems() {
@@ -115,19 +116,19 @@ window.onload = function () {
   // before the game begins
   function preload() {
     //Background
-    game.load.image('background','Full Moon - background.png');
+    game.load.image('background', imagesPath + 'Full Moon - background.png');
     
     //Load images
-    game.load.image('platform', 'platform_1.png');
-    game.load.image('platform2', 'platform_2.png');
+    game.load.image('platform', imagesPath + 'platform_1.png');
+    game.load.image('platform2', imagesPath + 'platform_2.png');
     
     //Load spritesheets
     //game.load.spritesheet('player', 'chalkers.png', 48, 62);
-    game.load.spritesheet('player', 'mikethefrog.png', 32, 32);
-    game.load.spritesheet('coin', 'coin.png', 36, 44);
-    game.load.spritesheet('badge', 'badge.png', 42, 54);
-    game.load.spritesheet('star', 'star.png', 32 , 32);
-    game.load.spritesheet('poison', 'poison.png', 32 , 32);
+    game.load.spritesheet('player', imagesPath + 'mikethefrog.png', 32, 32);
+    game.load.spritesheet('coin', imagesPath + 'coin.png', 36, 44);
+    game.load.spritesheet('badge', imagesPath + 'badge.png', 42, 54);
+    game.load.spritesheet('star', imagesPath + 'star.png', 32 , 32);
+    game.load.spritesheet('poison', imagesPath + 'poison.png', 32 , 32);
   }
 
   // initial game set up
