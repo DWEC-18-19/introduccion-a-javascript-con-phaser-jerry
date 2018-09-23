@@ -32,6 +32,8 @@ var config = {
       { 'key' : 'skeleton' , 'name' : 'skeleton.png' , 'width' : 32 , 'height' : 32  },
       { 'key' : 'coin' , 'name' : 'coin.png' , 'width' : 36 , 'height' : 44  },
       { 'key' : 'badge' , 'name' : 'badge.png' , 'width' : 42 , 'height' : 54  },
+      { 'key' : 'badge_2' , 'name' : 'badge_2.png' , 'width' : 42 , 'height' : 54  },
+      { 'key' : 'badge_3' , 'name' : 'badge_3.png' , 'width' : 42 , 'height' : 54  },
       { 'key' : 'star' , 'name' : 'star.png' , 'width' : 32 , 'height' : 32  },
       { 'key' : 'poison' , 'name' : 'poison.png' , 'width' : 32 , 'height' : 32  }
     ]
@@ -61,6 +63,12 @@ var config = {
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 150 },
                   { 'type' : 'platform2' , 'X' : 200 , 'Y' : 250 },
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 350 }
+                ],
+                'interaction' : [
+                  { 'key' : 'coin' , 'point' : 10 , 'live' : 0  },
+                  { 'key' : 'star' , 'point' : 20 , 'live' : 1 },
+                  { 'key' : 'poison' , 'point' : -10 , 'live' : -1 },
+                  { 'key' : 'badge' , 'point' : 100 , 'live' : 1 }
                 ],
                 'badge' : { 'type' : 'badge' , 'X' : 750, 'Y' : 400 } 
               }
@@ -97,20 +105,12 @@ function createBadge() {
 
 // when the player collects an item on the screen
 function itemHandler(player, item) {
-  item.kill();
-  if( item.key === 'coin'){
-    currentScore = currentScore + 10;
-    if (currentScore === WINNINGSCORE) {
-        createBadge();
-    }
-  }else if( item.key === 'poison' ){
-    if( --lives == 0 ){
-      winningMessage.text = "YOU LOSE!!!";
-      end = true;
-      items.removeAll();
-    }
-  }else if( item.key === 'star' ){
-    lives++;
+  addInteraction(item);
+  if (currentScore === WINNINGSCORE)  createBadge();
+  if( lives == 0 ){
+    winningMessage.text = "YOU LOSE!!!";
+    end = true;
+    items.removeAll();
   }
 }
 
@@ -129,9 +129,16 @@ function restartGame(){
   addItems();
 }
 
+function addInteraction( I_object ){
+  Interaction_type = config.levels[level].interaction.find( function( element ){ return element.key === I_object.key } );
+  I_object.kill();
+  currentScore += Interaction_type.point;
+  lives += Interaction_type.live;
+}
+
 // when the player collects the badge at the end of the game
 function badgeHandler(player, badge) {
-  badge.kill();
+  addInteraction(badge);
   won = true;
 }
 
