@@ -1,24 +1,15 @@
-//define constant values
-var INILIVES = 2;
-
 // define variables
-var game;
-var player;
-var platforms;
-var badges;
-var items;
-var cursors;
-var jumpButton;
+var game , player , platforms , badges , items;
+var cursors , jumpButton;
 var scoreLabel, livesLabel , levelLabel ;
 var winningMessage , restartMessage;
-var lives = INILIVES;
+var lives = 0, currentScore = 0 , level = 0;
 var won = false , end = true , badgeCreated = false;
-var currentScore = 0;
-var level = 0;
 
 //Config Array
 var config = {
   'imagesPath' : 'Images/',
+  'initialLives' : 2,
   'preload' : {
     'images' : [
       { 'key' : 'background' , 'name' : 'Full Moon - background.png' },
@@ -224,9 +215,9 @@ function restartGame(){
   if( won && ( level +1 ) < config.levels.length ){
     level++;
   }else{
-    lives = INILIVES;
+    lives = config.initialLives;
     currentScore = 0;
-    level = 2;
+    level = 0;
   }
   removePreviousElements();
 
