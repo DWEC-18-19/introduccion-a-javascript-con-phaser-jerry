@@ -15,6 +15,7 @@ var lives = INILIVES;
 var won = false;
 var end = true;
 var currentScore = 0;
+var level = 0;
 
 //Config Array
 var config = {
@@ -53,43 +54,19 @@ var config = {
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 350 }
                 ]
               }
-              ]
+            ]
 };
 
 // add collectable items to the game
 function addItems() {
   items = game.add.physicsGroup();
-
-  //Coins
-  createItem(375, 300, 'coin');
-  createItem(750, 30, 'coin');
-  createItem(75, 30, 'coin');
-  createItem(275, 300, 'coin');
-  createItem(50, 150, 'coin');
-  createItem(175, 300, 'coin');
-  createItem(540, 200, 'coin');
-  createItem(720, 100, 'coin');
-  createItem(30, 400, 'coin');
-  createItem(290, 500, 'coin');
-
-  //Star
-  createItem(125, 50, 'star');
-
-  //Poison
-  createItem(370, 500, 'poison');
-  createItem(100, 375, 'poison');
-
+  config.levels[level].items.forEach( item => createItem( item.X , item.Y , item.type ) );
 }
 
 // add platforms to the game
 function addPlatforms() {
   platforms = game.add.physicsGroup();
-  platforms.create(450, 450, 'platform');
-  platforms.create(550, 350, 'platform');
-  platforms.create(550, 100, 'platform');
-  platforms.create(50, 150, 'platform2');
-  platforms.create(200, 250, 'platform2');
-  platforms.create(50, 350, 'platform2');
+  config.levels[level].platforms.forEach( platform => platforms.create( platform.X , platform.Y , platform.type ) );
   platforms.setAll('body.immovable', true);
 }
 
