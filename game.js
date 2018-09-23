@@ -23,7 +23,8 @@ var config = {
     'images' : [
       { 'key' : 'background' , 'name' : 'Full Moon - background.png' },
       { 'key' : 'platform' , 'name' : 'platform_1.png' },
-      { 'key' : 'platform2' , 'name' : 'platform_2.png' }
+      { 'key' : 'platform2' , 'name' : 'platform_2.png' },
+      { 'key' : 'platform3' , 'name' : 'platform_3.png' }
     ],
     'spritesheets' : [
       { 'key' : 'chalkers' , 'name' : 'chalkers.png' , 'width' : 48 , 'height' : 62  },
@@ -76,27 +77,38 @@ var config = {
                 'targetScore' : 400,
                 'player' : { 'key' : 'mikethefrog' , 'X' : 750 , 'Y' : 600 },
                 'items' : [
-                  { 'type' : 'coin' , 'X' : 375 , 'Y' : 300 },
-                  { 'type' : 'coin' , 'X' : 750 , 'Y' : 30 },
-                  { 'type' : 'coin' , 'X' : 75 , 'Y' : 30 },
-                  { 'type' : 'coin' , 'X' : 640 , 'Y' : 450 },
-                  { 'type' : 'coin' , 'X' : 50 , 'Y' : 200 },
-                  { 'type' : 'coin' , 'X' : 175 , 'Y' : 300 },
-                  { 'type' : 'coin' , 'X' : 500 , 'Y' : 100 },
-                  { 'type' : 'coin' , 'X' : 720 , 'Y' : 150 },
-                  { 'type' : 'coin' , 'X' : 70 , 'Y' : 400 },
-                  { 'type' : 'coin' , 'X' : 290 , 'Y' : 500 },
-                  { 'type' : 'star' , 'X' : 400 , 'Y' : 300 },
+                  { 'type' : 'coin' , 'X' : 360 , 'Y' : 550 },
+                  { 'type' : 'coin' , 'X' : 750 , 'Y' : 50 },
+                  { 'type' : 'coin' , 'X' : 550 , 'Y' : 0 },
+                  { 'type' : 'coin' , 'X' : 750 , 'Y' : 230 },
+                  { 'type' : 'coin' , 'X' : 250 , 'Y' : 0 },
+                  { 'type' : 'coin' , 'X' : 0 , 'Y' : 330 },
+                  { 'type' : 'coin' , 'X' : 0 , 'Y' : 550 },
+                  { 'type' : 'coin' , 'X' : 0 , 'Y' : 250 },
+                  { 'type' : 'coin' , 'X' : 360 , 'Y' : 450 },
+                  { 'type' : 'coin' , 'X' : 360 , 'Y' : 200 },
+                  { 'type' : 'coin' , 'X' : 500 , 'Y' : 450 },
+                  { 'type' : 'star' , 'X' : 450 , 'Y' : 300 },
+                  { 'type' : 'star' , 'X' : 50 , 'Y' : 80 },
                   { 'type' : 'poison' , 'X' : 370 , 'Y' : 500 },
+                  { 'type' : 'poison' , 'X' : 50 , 'Y' : 530 },
+                  { 'type' : 'poison' , 'X' : 700 , 'Y' : 50 },
+                  { 'type' : 'poison' , 'X' : 700 , 'Y' : 150 },
+                  { 'type' : 'poison' , 'X' : 250 , 'Y' : 50 },
+                  { 'type' : 'poison' , 'X' : 650 , 'Y' : 500 },
                   { 'type' : 'poison' , 'X' : 100 , 'Y' : 375 }
                 ],
                 'platforms' : [
                   { 'type' : 'platform' , 'X' : 400 , 'Y' : 400 },
-                  { 'type' : 'platform' , 'X' : 500 , 'Y' : 300 },
-                  { 'type' : 'platform' , 'X' : 500 , 'Y' : 100 },
-                  { 'type' : 'platform2' , 'X' : 50 , 'Y' : 100 },
-                  { 'type' : 'platform2' , 'X' : 200 , 'Y' : 200 },
-                  { 'type' : 'platform2' , 'X' : 50 , 'Y' : 300 }
+                  { 'type' : 'platform3' , 'X' : 400 , 'Y' : 400 },
+                  { 'type' : 'platform' , 'X' : 400 , 'Y' : 200 },
+                  { 'type' : 'platform' , 'X' : 600 , 'Y' : 200 },
+                  { 'type' : 'platform3' , 'X' : 600 , 'Y' : -50 },
+                  { 'type' : 'platform3' , 'X' : 250 , 'Y' : 100 },
+                  { 'type' : 'platform' , 'X' : 0 , 'Y' : 300 },
+                  { 'type' : 'platform' , 'X' : 0 , 'Y' : 500 },
+                  { 'type' : 'platform3' , 'X' : 250 , 'Y' : 250 },
+                  { 'type' : 'platform3' , 'X' : 250 , 'Y' : 420 }
                 ],
                 'interaction' : [
                   { 'key' : 'coin' , 'point' : 20 , 'live' : 0  },
@@ -104,7 +116,7 @@ var config = {
                   { 'key' : 'poison' , 'point' : -20 , 'live' : -1 },
                   { 'key' : 'badge_2' , 'point' : 200 , 'live' : 1 }
                 ],
-                'badge' : { 'type' : 'badge_2' , 'X' : 50, 'Y' : 90 } 
+                'badge' : { 'type' : 'badge_2' , 'X' : 450, 'Y' : 450 } 
               }
             ]
 };
@@ -159,11 +171,12 @@ function restartGame(){
   }else{
     lives = INILIVES;
     currentScore = 0;
-    level = 1;
+    level = 0;
   }
 
+  removePreviousElements();
+
   //Player creation
-  removePreviousSprite();
   player = game.add.sprite( config.levels[level].player.X , config.levels[level].player.Y ,  config.levels[level].player.key );
   player.animations.add('walk');
   player.anchor.setTo(0.5, 1);
@@ -182,14 +195,25 @@ function restartGame(){
   won = false;
   badgeCreated = false;
   addItems();
+  addPlatforms();
 }
 
-function removePreviousSprite(){
+function removePreviousElements(){
   if( player != undefined ){
     player.body = null;
     player.kill();
     player.destroy();
     player = undefined;
+  }
+  if( items != undefined ){
+    items.removeAll();
+    items.destroy();
+    items = undefined;
+  }
+  if( platforms != undefined ){
+    platforms.removeAll();
+    platforms.destroy();
+    platforms = undefined;
   }
 }
 
@@ -224,9 +248,6 @@ window.onload = function () {
   function create() {
     //Background load
     game.add.tileSprite(0, 0, 800 , 600, 'background');
-
-    //addItems();
-    addPlatforms();
 
     //Keys
     cursors = game.input.keyboard.createCursorKeys();
@@ -283,6 +304,7 @@ window.onload = function () {
           winningMessage.text = "YOU WIN!!!";
         else
           winningMessage.text = "STAGE CLEAR!";
+        game.world.bringToTop(winningMessage);
         items.removeAll();
         end = true;
       }
@@ -292,6 +314,7 @@ window.onload = function () {
           restartMessage.text = "Press Space Key To Next Stage";
         else
           restartMessage.text = "Press Space Key To Start";
+        game.world.bringToTop(restartMessage);
       }
       if( jumpButton.isDown ){
         restartGame();
