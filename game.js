@@ -9,7 +9,7 @@ var badges;
 var items;
 var cursors;
 var jumpButton;
-var scoreLabel, livesLabel ;
+var scoreLabel, livesLabel , levelLabel ;
 var winningMessage , restartMessage;
 var lives = INILIVES;
 var won = false;
@@ -116,12 +116,20 @@ function itemHandler(player, item) {
 
 //Funcion para generar datos iniciales
 function restartGame(){
+
+  if( won && ( level +1 ) < config.levels.length ){
+    level++;
+  }else{
+    lives = INILIVES;
+    currentScore = 0;
+    level = 0;
+  }
+
   winningMessage.text = "";
   restartMessage.text = "";
+  levelLabel.text =  "LEVEL : " + ( level + 1 );
   end = false;
   won = false;
-  lives = INILIVES;
-  currentScore = 0;
 
   //Player
   player.body.x = config.levels[level].player.X;
@@ -179,6 +187,7 @@ window.onload = function () {
     //Labels
     scoreLabel = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
     livesLabel = game.add.text(650, 16, "LIVES: " + lives, { font: "bold 24px Arial", fill: "white" });
+    levelLabel = game.add.text(16, 35, "LEVEL : " + ( level + 1 ) , { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
     restartMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
@@ -219,15 +228,22 @@ window.onload = function () {
         player.body.velocity.y = -400;
       }
 
-      // when the player winw the game
+      // when the player win the game
       if (won) {
-        winningMessage.text = "YOU WIN!!!";
+        if( ( level +1 ) === config.levels.length )
+          winningMessage.text = "YOU WIN!!!";
+        else
+          winningMessage.text = "STAGE CLEAR!";
         items.removeAll();
         end = true;
       }
     }else{
-      if( restartMessage.text === "" )
+      if( restartMessage.text === "" ){
+        if( won && ( level +1 ) < config.levels.length )
+          restartMessage.text = "Press Space Key To Next Stage";
+        else
           restartMessage.text = "Press Space Key To Start";
+      }
       if( jumpButton.isDown ){
         restartGame();
       }
