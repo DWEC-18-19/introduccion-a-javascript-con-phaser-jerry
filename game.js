@@ -39,9 +39,16 @@ var config = {
     ]
   },
   'levels' : [
-              {
+              { //LEVEL 1
                 'targetScore' : 100 ,
-                'player' : { 'key' : 'skeleton' , 'X' : 50 , 'Y' : 600 },
+                'player' : { 'key' : 'skeleton' , 'X' : 50 , 'Y' : 600 , 'gravity' : 500 },
+                'badge' : { 'type' : 'badge' , 'X' : 750, 'Y' : 400 },
+                'interaction' : [
+                  { 'key' : 'coin' , 'point' : 10 , 'live' : 0  },
+                  { 'key' : 'star' , 'point' : 20 , 'live' : 1 },
+                  { 'key' : 'poison' , 'point' : -10 , 'live' : -1 },
+                  { 'key' : 'badge' , 'point' : 100 , 'live' : 1 }
+                ],
                 'items' : [
                   { 'type' : 'coin' , 'X' : 375 , 'Y' : 300 },
                   { 'type' : 'coin' , 'X' : 750 , 'Y' : 30 },
@@ -64,18 +71,18 @@ var config = {
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 150 },
                   { 'type' : 'platform2' , 'X' : 200 , 'Y' : 250 },
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 350 }
-                ],
-                'interaction' : [
-                  { 'key' : 'coin' , 'point' : 10 , 'live' : 0  },
-                  { 'key' : 'star' , 'point' : 20 , 'live' : 1 },
-                  { 'key' : 'poison' , 'point' : -10 , 'live' : -1 },
-                  { 'key' : 'badge' , 'point' : 100 , 'live' : 1 }
-                ],
-                'badge' : { 'type' : 'badge' , 'X' : 750, 'Y' : 400 } 
+                ]
               },
-              {
+              { //LEVEL 2
                 'targetScore' : 400,
-                'player' : { 'key' : 'mikethefrog' , 'X' : 750 , 'Y' : 600 },
+                'player' : { 'key' : 'mikethefrog' , 'X' : 750 , 'Y' : 600 , 'gravity' : 400 },
+                'badge' : { 'type' : 'badge_2' , 'X' : 450, 'Y' : 450 },
+                'interaction' : [
+                  { 'key' : 'coin' , 'point' : 20 , 'live' : 0  },
+                  { 'key' : 'star' , 'point' : 40 , 'live' : 1 },
+                  { 'key' : 'poison' , 'point' : -20 , 'live' : -1 },
+                  { 'key' : 'badge_2' , 'point' : 200 , 'live' : 1 }
+                ],
                 'items' : [
                   { 'type' : 'coin' , 'X' : 360 , 'Y' : 550 },
                   { 'type' : 'coin' , 'X' : 750 , 'Y' : 50 },
@@ -94,7 +101,7 @@ var config = {
                   { 'type' : 'poison' , 'X' : 50 , 'Y' : 530 },
                   { 'type' : 'poison' , 'X' : 700 , 'Y' : 50 },
                   { 'type' : 'poison' , 'X' : 700 , 'Y' : 150 },
-                  { 'type' : 'poison' , 'X' : 250 , 'Y' : 50 },
+                  { 'type' : 'poison' , 'X' : 280 , 'Y' : 50 },
                   { 'type' : 'poison' , 'X' : 650 , 'Y' : 500 },
                   { 'type' : 'poison' , 'X' : 100 , 'Y' : 375 }
                 ],
@@ -104,19 +111,66 @@ var config = {
                   { 'type' : 'platform' , 'X' : 400 , 'Y' : 200 },
                   { 'type' : 'platform' , 'X' : 600 , 'Y' : 200 },
                   { 'type' : 'platform3' , 'X' : 600 , 'Y' : -50 },
-                  { 'type' : 'platform3' , 'X' : 250 , 'Y' : 100 },
+                  { 'type' : 'platform3' , 'X' : 250 , 'Y' : 110 },
                   { 'type' : 'platform' , 'X' : 0 , 'Y' : 300 },
                   { 'type' : 'platform' , 'X' : 0 , 'Y' : 500 },
                   { 'type' : 'platform3' , 'X' : 250 , 'Y' : 250 },
                   { 'type' : 'platform3' , 'X' : 250 , 'Y' : 420 }
-                ],
+                ]
+              },
+              { //LEVEL 3
+                'targetScore' : 1000,
+                'player' : { 'key' : 'chalkers' , 'X' : 0 , 'Y' : 570 , 'gravity' : 200 },
+                'badge' : { 'type' : 'badge_3' , 'X' : 400, 'Y' : 350 },
                 'interaction' : [
-                  { 'key' : 'coin' , 'point' : 20 , 'live' : 0  },
-                  { 'key' : 'star' , 'point' : 40 , 'live' : 1 },
-                  { 'key' : 'poison' , 'point' : -20 , 'live' : -1 },
-                  { 'key' : 'badge_2' , 'point' : 200 , 'live' : 1 }
+                  { 'key' : 'coin' , 'point' : 30 , 'live' : 0  },
+                  { 'key' : 'star' , 'point' : 60 , 'live' : 1 },
+                  { 'key' : 'poison' , 'point' : -50 , 'live' : -1 },
+                  { 'key' : 'badge_3' , 'point' : 500 , 'live' : 1 }
                 ],
-                'badge' : { 'type' : 'badge_2' , 'X' : 450, 'Y' : 450 } 
+                'items' : [
+                  { 'type' : 'coin' , 'X' : 0 , 'Y' : 290 },
+                  { 'type' : 'coin' , 'X' : 0 , 'Y' : 200 },
+                  { 'type' : 'coin' , 'X' : 50 , 'Y' : 150 },
+                  { 'type' : 'coin' , 'X' : 80 , 'Y' : 125 },
+                  { 'type' : 'coin' , 'X' : 25 , 'Y' : 175 },
+                  { 'type' : 'coin' , 'X' : 250 , 'Y' : 0 },
+                  { 'type' : 'coin' , 'X' : 550 , 'Y' : 200 },
+                  { 'type' : 'coin' , 'X' : 500 , 'Y' : 200 },
+                  { 'type' : 'coin' , 'X' : 750 , 'Y' : 350 },
+                  { 'type' : 'coin' , 'X' : 700 , 'Y' : 375 },
+                  { 'type' : 'coin' , 'X' : 600 , 'Y' : 350 },
+                  { 'type' : 'coin' , 'X' : 650 , 'Y' : 375 },
+                  { 'type' : 'coin' , 'X' : 550 , 'Y' : 325 },
+                  { 'type' : 'star' , 'X' : 500 , 'Y' : 570 },
+                  { 'type' : 'star' , 'X' : 0 , 'Y' : 60 },
+                  { 'type' : 'star' , 'X' : 750 , 'Y' : 200 },
+                  { 'type' : 'poison' , 'X' : 0 , 'Y' : 350 },
+                  { 'type' : 'poison' , 'X' : 0 , 'Y' : 120 },
+                  { 'type' : 'poison' , 'X' : 250 , 'Y' : 70 },
+                  { 'type' : 'poison' , 'X' : 400 , 'Y' : 60 },
+                  { 'type' : 'poison' , 'X' : 450 , 'Y' : 60 },
+                  { 'type' : 'poison' , 'X' : 150 , 'Y' : 200 },
+                  { 'type' : 'poison' , 'X' : 600 , 'Y' : 200 },
+                  { 'type' : 'poison' , 'X' : 700 , 'Y' : 200 },
+                  { 'type' : 'poison' , 'X' : 600 , 'Y' : 300 },
+                  { 'type' : 'poison' , 'X' : 700 , 'Y' : 300 }
+                ],
+                'platforms' : [
+                  { 'type' : 'platform' , 'X' : 0 , 'Y' : 90 },
+                  { 'type' : 'platform2' , 'X' : 0 , 'Y' : 570 },
+                  { 'type' : 'platform2' , 'X' : 150 , 'Y' : 570 },
+                  { 'type' : 'platform2' , 'X' : 300 , 'Y' : 570 },
+                  { 'type' : 'platform2' , 'X' : 550 , 'Y' : 570 },
+                  { 'type' : 'platform2' , 'X' : 700 , 'Y' : 570 },
+                  { 'type' : 'platform3' , 'X' : 450 , 'Y' : 350 },
+                  { 'type' : 'platform3' , 'X' : 450 , 'Y' : 90 },
+                  { 'type' : 'platform' , 'X' : 450 , 'Y' : 250 },
+                  { 'type' : 'platform' , 'X' : 700 , 'Y' : 250 },
+                  { 'type' : 'platform' , 'X' : 0 , 'Y' : 250 },
+                  { 'type' : 'platform' , 'X' : 200 , 'Y' : 250 },
+                  { 'type' : 'platform3' , 'X' : 400 , 'Y' : 90 }
+                ]
               }
             ]
 };
@@ -158,22 +212,22 @@ function itemHandler(player, item) {
   } 
   if( lives == 0 ){
     winningMessage.text = "YOU LOSE!!!";
+    game.world.bringToTop(winningMessage);
     end = true;
     items.removeAll();
   }
 }
 
-//Funcion para generar datos iniciales
+//Function to generate initial values
 function restartGame(){
-
+  //Determine current level
   if( won && ( level +1 ) < config.levels.length ){
     level++;
   }else{
     lives = INILIVES;
     currentScore = 0;
-    level = 0;
+    level = 2;
   }
-
   removePreviousElements();
 
   //Player creation
@@ -182,18 +236,14 @@ function restartGame(){
   player.anchor.setTo(0.5, 1);
   game.physics.arcade.enable(player);
   player.body.collideWorldBounds = true;
-  player.body.gravity.y = 400;
-  //Player
+  player.body.gravity.y = config.levels[level].player.gravity;
   player.body.x = config.levels[level].player.X;
   player.body.y = config.levels[level].player.Y;
 
   //Initial level values
-  winningMessage.text = "";
-  restartMessage.text = "";
+  winningMessage.text = restartMessage.text = "";
   levelLabel.text =  "LEVEL : " + ( level + 1 );
-  end = false;
-  won = false;
-  badgeCreated = false;
+  badgeCreated = won = end = false;
   addItems();
   addPlatforms();
 }
@@ -217,6 +267,7 @@ function removePreviousElements(){
   }
 }
 
+//Determine current score and lives
 function addInteraction( I_object ){
   Interaction_type = config.levels[level].interaction.find( function( element ){ return element.key === I_object.key } );
   I_object.kill();
@@ -316,14 +367,9 @@ window.onload = function () {
           restartMessage.text = "Press Space Key To Start";
         game.world.bringToTop(restartMessage);
       }
-      if( jumpButton.isDown ){
-        restartGame();
-      }
+      if( jumpButton.isDown ) restartGame();
     }
   }
 
-  function render() {
-
-  }
-
+  function render() {  }
 };
