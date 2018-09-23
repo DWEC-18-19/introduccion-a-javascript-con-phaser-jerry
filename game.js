@@ -25,21 +25,30 @@ var config = {
       { 'key' : 'background' , 'name' : 'Full Moon - background.png' },
       { 'key' : 'platform' , 'name' : 'platform_1.png' },
       { 'key' : 'platform2' , 'name' : 'platform_2.png' }
+    ],
+    'spritesheets' : [
+      { 'key' : 'chalkers' , 'name' : 'chalkers.png' , 'width' : 48 , 'height' : 62  },
+      { 'key' : 'mikethefrog' , 'name' : 'mikethefrog.png' , 'width' : 32 , 'height' : 32  },
+      { 'key' : 'skeleton' , 'name' : 'skeleton.png' , 'width' : 32 , 'height' : 32  },
+      { 'key' : 'coin' , 'name' : 'coin.png' , 'width' : 36 , 'height' : 44  },
+      { 'key' : 'badge' , 'name' : 'badge.png' , 'width' : 42 , 'height' : 54  },
+      { 'key' : 'star' , 'name' : 'star.png' , 'width' : 32 , 'height' : 32  },
+      { 'key' : 'poison' , 'name' : 'poison.png' , 'width' : 32 , 'height' : 32  }
     ]
   },
   'levels' : [
               {
-                'position' : { 'X' : 50 , 'Y' : 600 },
+                'player' : { 'key' : 'skeleton' , 'X' : 50 , 'Y' : 600 },
                 'items' : [
                   { 'type' : 'coin' , 'X' : 375 , 'Y' : 300 },
                   { 'type' : 'coin' , 'X' : 750 , 'Y' : 30 },
                   { 'type' : 'coin' , 'X' : 75 , 'Y' : 30 },
-                  { 'type' : 'coin' , 'X' : 275 , 'Y' : 300 },
-                  { 'type' : 'coin' , 'X' : 50 , 'Y' : 150 },
+                  { 'type' : 'coin' , 'X' : 640 , 'Y' : 450 },
+                  { 'type' : 'coin' , 'X' : 50 , 'Y' : 200 },
                   { 'type' : 'coin' , 'X' : 175 , 'Y' : 300 },
-                  { 'type' : 'coin' , 'X' : 540 , 'Y' : 200 },
-                  { 'type' : 'coin' , 'X' : 720 , 'Y' : 100 },
-                  { 'type' : 'coin' , 'X' : 30 , 'Y' : 400 },
+                  { 'type' : 'coin' , 'X' : 500 , 'Y' : 100 },
+                  { 'type' : 'coin' , 'X' : 720 , 'Y' : 150 },
+                  { 'type' : 'coin' , 'X' : 70 , 'Y' : 400 },
                   { 'type' : 'coin' , 'X' : 290 , 'Y' : 500 },
                   { 'type' : 'star' , 'X' : 125 , 'Y' : 50 },
                   { 'type' : 'poison' , 'X' : 370 , 'Y' : 500 },
@@ -52,7 +61,8 @@ var config = {
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 150 },
                   { 'type' : 'platform2' , 'X' : 200 , 'Y' : 250 },
                   { 'type' : 'platform2' , 'X' : 50 , 'Y' : 350 }
-                ]
+                ],
+                'badge' : { 'type' : 'badge' , 'X' : 750, 'Y' : 400 } 
               }
             ]
 };
@@ -80,7 +90,7 @@ function createItem(left, top, image) {
 // create the winning badge and add to screen
 function createBadge() {
   badges = game.add.physicsGroup();
-  var badge = badges.create(750, 400, 'badge');
+  var badge = badges.create( config.levels[level].badge.X , config.levels[level].badge.Y , config.levels[level].badge.type );
   badge.animations.add('spin');
   badge.animations.play('spin', 10, true);
 }
@@ -114,8 +124,8 @@ function restartGame(){
   currentScore = 0;
 
   //Player
-  player.body.x = 50;
-  player.body.y = 600;
+  player.body.x = config.levels[level].player.X;
+  player.body.y = config.levels[level].player.Y;
   addItems();
 }
 
@@ -136,13 +146,7 @@ window.onload = function () {
     config.preload.images.forEach( img => game.load.image( img.key , config.imagesPath + img.name ) );
 
     //Load spritesheets
-    //game.load.spritesheet('player', 'chalkers.png', 48, 62);
-    //game.load.spritesheet('player', imagesPath + 'mikethefrog.png', 32, 32);
-    game.load.spritesheet('player', config.imagesPath + 'skeleton.png', 32, 32);
-    game.load.spritesheet('coin', config.imagesPath + 'coin.png', 36, 44);
-    game.load.spritesheet('badge', config.imagesPath + 'badge.png', 42, 54);
-    game.load.spritesheet('star', config.imagesPath + 'star.png', 32 , 32);
-    game.load.spritesheet('poison', config.imagesPath + 'poison.png', 32 , 32);
+    config.preload.spritesheets.forEach( spritesheet => game.load.spritesheet( spritesheet.key , config.imagesPath + spritesheet.name , spritesheet.width , spritesheet.height ) );
   }
 
   // initial game set up
@@ -151,7 +155,7 @@ window.onload = function () {
     game.add.tileSprite(0, 0, 800 , 600, 'background');
 
     //Player creation
-    player = game.add.sprite(50, 600, 'player');
+    player = game.add.sprite( config.levels[level].player.X , config.levels[level].player.Y ,  config.levels[level].player.key );
     player.animations.add('walk');
     player.anchor.setTo(0.5, 1);
     game.physics.arcade.enable(player);
