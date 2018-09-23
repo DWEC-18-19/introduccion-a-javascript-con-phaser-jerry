@@ -1,5 +1,5 @@
 //define constant values
-var WINNINGSCORE = 100 , INILIVES = 2;
+var INILIVES = 2;
 
 // define variables
 var game;
@@ -12,8 +12,7 @@ var jumpButton;
 var scoreLabel, livesLabel , levelLabel ;
 var winningMessage , restartMessage;
 var lives = INILIVES;
-var won = false;
-var end = true;
+var won = false , end = true , badgeCreated = false;
 var currentScore = 0;
 var level = 0;
 
@@ -40,6 +39,7 @@ var config = {
   },
   'levels' : [
               {
+                'targetScore' : 100 ,
                 'player' : { 'key' : 'skeleton' , 'X' : 50 , 'Y' : 600 },
                 'items' : [
                   { 'type' : 'coin' , 'X' : 375 , 'Y' : 300 },
@@ -71,6 +71,40 @@ var config = {
                   { 'key' : 'badge' , 'point' : 100 , 'live' : 1 }
                 ],
                 'badge' : { 'type' : 'badge' , 'X' : 750, 'Y' : 400 } 
+              },
+              {
+                'targetScore' : 400,
+                'player' : { 'key' : 'mikethefrog' , 'X' : 750 , 'Y' : 600 },
+                'items' : [
+                  { 'type' : 'coin' , 'X' : 375 , 'Y' : 300 },
+                  { 'type' : 'coin' , 'X' : 750 , 'Y' : 30 },
+                  { 'type' : 'coin' , 'X' : 75 , 'Y' : 30 },
+                  { 'type' : 'coin' , 'X' : 640 , 'Y' : 450 },
+                  { 'type' : 'coin' , 'X' : 50 , 'Y' : 200 },
+                  { 'type' : 'coin' , 'X' : 175 , 'Y' : 300 },
+                  { 'type' : 'coin' , 'X' : 500 , 'Y' : 100 },
+                  { 'type' : 'coin' , 'X' : 720 , 'Y' : 150 },
+                  { 'type' : 'coin' , 'X' : 70 , 'Y' : 400 },
+                  { 'type' : 'coin' , 'X' : 290 , 'Y' : 500 },
+                  { 'type' : 'star' , 'X' : 400 , 'Y' : 300 },
+                  { 'type' : 'poison' , 'X' : 370 , 'Y' : 500 },
+                  { 'type' : 'poison' , 'X' : 100 , 'Y' : 375 }
+                ],
+                'platforms' : [
+                  { 'type' : 'platform' , 'X' : 400 , 'Y' : 400 },
+                  { 'type' : 'platform' , 'X' : 500 , 'Y' : 300 },
+                  { 'type' : 'platform' , 'X' : 500 , 'Y' : 100 },
+                  { 'type' : 'platform2' , 'X' : 50 , 'Y' : 100 },
+                  { 'type' : 'platform2' , 'X' : 200 , 'Y' : 200 },
+                  { 'type' : 'platform2' , 'X' : 50 , 'Y' : 300 }
+                ],
+                'interaction' : [
+                  { 'key' : 'coin' , 'point' : 20 , 'live' : 0  },
+                  { 'key' : 'star' , 'point' : 40 , 'live' : 1 },
+                  { 'key' : 'poison' , 'point' : -20 , 'live' : -1 },
+                  { 'key' : 'badge_2' , 'point' : 200 , 'live' : 1 }
+                ],
+                'badge' : { 'type' : 'badge_2' , 'X' : 50, 'Y' : 90 } 
               }
             ]
 };
@@ -101,12 +135,15 @@ function createBadge() {
   var badge = badges.create( config.levels[level].badge.X , config.levels[level].badge.Y , config.levels[level].badge.type );
   badge.animations.add('spin');
   badge.animations.play('spin', 10, true);
+  badgeCreated = true;
 }
 
 // when the player collects an item on the screen
 function itemHandler(player, item) {
   addInteraction(item);
-  if (currentScore === WINNINGSCORE)  createBadge();
+  if (currentScore >= config.levels[level].targetScore && !badgeCreated ){
+    createBadge();
+  } 
   if( lives == 0 ){
     winningMessage.text = "YOU LOSE!!!";
     end = true;
@@ -122,19 +159,38 @@ function restartGame(){
   }else{
     lives = INILIVES;
     currentScore = 0;
-    level = 0;
+    level = 1;
   }
 
+  //Player creation
+  removePreviousSprite();
+  player = game.add.sprite( config.levels[level].player.X , config.levels[level].player.Y ,  config.levels[level].player.key );
+  player.animations.add('walk');
+  player.anchor.setTo(0.5, 1);
+  game.physics.arcade.enable(player);
+  player.body.collideWorldBounds = true;
+  player.body.gravity.y = 400;
+  //Player
+  player.body.x = config.levels[level].player.X;
+  player.body.y = config.levels[level].player.Y;
+
+  //Initial level values
   winningMessage.text = "";
   restartMessage.text = "";
   levelLabel.text =  "LEVEL : " + ( level + 1 );
   end = false;
   won = false;
-
-  //Player
-  player.body.x = config.levels[level].player.X;
-  player.body.y = config.levels[level].player.Y;
+  badgeCreated = false;
   addItems();
+}
+
+function removePreviousSprite(){
+  if( player != undefined ){
+    player.body = null;
+    player.kill();
+    player.destroy();
+    player = undefined;
+  }
 }
 
 function addInteraction( I_object ){
@@ -169,14 +225,6 @@ window.onload = function () {
     //Background load
     game.add.tileSprite(0, 0, 800 , 600, 'background');
 
-    //Player creation
-    player = game.add.sprite( config.levels[level].player.X , config.levels[level].player.Y ,  config.levels[level].player.key );
-    player.animations.add('walk');
-    player.anchor.setTo(0.5, 1);
-    game.physics.arcade.enable(player);
-    player.body.collideWorldBounds = true;
-    player.body.gravity.y = 400;
-
     //addItems();
     addPlatforms();
 
@@ -199,12 +247,13 @@ window.onload = function () {
   function update() {
     scoreLabel.text = "SCORE: " + currentScore;
     livesLabel.text = "LIVES: " + lives;
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.overlap(player, items, itemHandler);
-    game.physics.arcade.overlap(player, badges, badgeHandler);
-    player.body.velocity.x = 0;
 
     if( !end ){
+
+      game.physics.arcade.collide(player, platforms);
+      game.physics.arcade.overlap(player, items, itemHandler);
+      game.physics.arcade.overlap(player, badges, badgeHandler);
+      player.body.velocity.x = 0;
 
       // is the left cursor key presssed?
       if (cursors.left.isDown) {
