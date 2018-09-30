@@ -53,7 +53,7 @@ var config = {
                   { 'type' : 'coin' , 'X' : 290 , 'Y' : 500 },
                   { 'type' : 'star' , 'X' : 125 , 'Y' : 50 },
                   { 'type' : 'poison' , 'X' : 370 , 'Y' : 500 },
-                  { 'type' : 'poison' , 'X' : 100 , 'Y' : 375 }
+                  { 'type' : 'poison' , 'X' : 100 , 'Y' : 380 }
                 ],
                 'platforms' : [
                   { 'type' : 'platform' , 'X' : 450 , 'Y' : 450 },
