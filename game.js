@@ -139,8 +139,8 @@ var config = {
                   { 'type' : 'poison' , 'X' : 0 , 'Y' : 350 },
                   { 'type' : 'poison' , 'X' : 0 , 'Y' : 120 },
                   { 'type' : 'poison' , 'X' : 250 , 'Y' : 70 },
-                  { 'type' : 'poison' , 'X' : 400 , 'Y' : 60 },
-                  { 'type' : 'poison' , 'X' : 450 , 'Y' : 60 },
+                  { 'type' : 'poison' , 'X' : 500 , 'Y' : 80 },
+                  { 'type' : 'poison' , 'X' : 350 , 'Y' : 80 },
                   { 'type' : 'poison' , 'X' : 150 , 'Y' : 200 },
                   { 'type' : 'poison' , 'X' : 600 , 'Y' : 200 },
                   { 'type' : 'poison' , 'X' : 700 , 'Y' : 200 },
@@ -217,7 +217,7 @@ function restartGame(){
   }else{
     lives = config.initialLives;
     currentScore = 0;
-    level = 0;
+    level = 2;
   }
   removePreviousElements();
 
